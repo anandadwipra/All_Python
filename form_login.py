@@ -1,40 +1,45 @@
 import tkinter as tk
 import sqlite3
-import hashlib
+from tkinter import messagebox
 # this program use sqlite
 class form_login(tk.Tk):
 	def __init__(self):
 		tk.Tk.__init__(self)
 		self.databases_conn()
 		self.title("Form Login Sederhana")
-		self.geometry("500x600")
+		self.geometry("500x600+120+120")
 		self.config(bg='grey')
 		self.membuatentry()
 		self.button()
 	def databases_conn(self):
 		try:
 			self.conn = sqlite3.connect('testing.db')
+			self.c=self.conn.cursor()
 			print("Opened database successfully");
-			self.conn.execute('''CREATE TABLE User
+			self.c.execute('''CREATE TABLE User
          	(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
          	Username           TEXT    NOT NULL,
          	Password            TEXT     NOT NULL
          	);''')
-			print ("Table created successfully");
-		except:
-			print("Your conection is failed")
+			print ("Table created successfully");  
+		except Exception as e:
+			print(e)
 
 
 	def membuatentry(self):
+		self.labelutama=tk.Label(self,text="Silakan Login ",bg="grey",font=("helvetica",30)).place(x=130,y=10)
+
+
 		self.username=tk.Entry(self,width=27,font=("Helvetica",15))
 		self.labelusername=tk.Label(self,width=10,text="Username : ",bg="grey",font=("BatangChe",15))
-		self.labelusername.grid(row=0,column=0,padx=(30,0),pady=(50,10))
-		self.username.grid(row=0,column=1,padx=10,pady=(50,10))
+		self.labelusername.grid(row=0,column=0,padx=(30,0),pady=(90,10))
+		self.username.grid(row=0,column=1,padx=10,pady=(90,10))
 		
 		self.password=tk.Entry(self,width=27,font=("Helvetica",15),show="*")
 		self.labelpassword=tk.Label(self,width=10,text="Password : ",bg="grey",font=("BatangChe",15))
 		self.labelpassword.grid(row=1,column=0,padx=(30,0),pady=0)
 		self.password.grid(row=1,column=1,padx=10,pady=0)
+		self.password.bind("<Return>",self.login)
 
 		self.username.focus_set()
 
@@ -42,19 +47,28 @@ class form_login(tk.Tk):
 		self.login=tk.Button(text="Login",width=27,command=self.login)
 		self.login.grid(row=3,column=1,pady=(30,0),padx=(105,0))
 
-	def login(self):
+	def login(self,sementara=False):
 		abc0=self.username.get()
-		abc=hashlib.md5(self.password.get().encode()).hexdigest()
+		abc=self.password.get()
 		self.username.delete(0,tk.END)
 		self.password.delete(0,tk.END)
 		self.username.focus_set()
 		try:
-			comand="INSERT INTO User (ID,Username,Password) VALUES ( null,'{}','{}')".format(abc0,abc)
-			self.conn.execute(comand);
-			self.conn.commit()
-			print("Succes")
-		except:
-			print("Failed")
+			warning=self.c.execute(f"SELECT Username FROM User WHERE Username='{abc0}'").fetchall()
+			if not warning:
+				messagebox.showwarning("Failed","{} Tidak ada harap daftar terlebih dahulu".format(warning[0][0]))
+				return
+		except Exception as e:
+			print(e)
+		try:
+			login=self.c.execute(f"SELECT * FROM User WHERE Username='{abc0}'").fetchall()[0]
+			print(login)
+			if login[1]==abc0 and login[2]==abc:
+				messagebox.showinfo("Berhasil","Selamat anda berhasil Login ")
+			else:
+				messagebox.showerror("Gagal","Username atau Password tidak valid")
+		except Exception as e:
+			print(f"Failed{e}")
 
 abc=form_login()
 abc.mainloop()
