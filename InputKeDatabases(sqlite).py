@@ -28,25 +28,31 @@ class Input_database(tk.Tk):
 
 
 	def membuatentry(self):
+		self.mainlabel=tk.Label(self,text="Input Ke Database",font=("BatangChe",25),bg="grey").place(x=120,y=10)
+
+
 		self.username=tk.Entry(self,width=27,font=("Helvetica",15))
 		self.labelusername=tk.Label(self,width=10,text="Username : ",bg="grey",font=("BatangChe",15))
-		self.labelusername.grid(row=0,column=0,padx=(30,0),pady=(50,10))
-		self.username.grid(row=0,column=1,padx=10,pady=(50,10))
+		self.labelusername.grid(row=1,column=0,padx=(30,0),pady=(70,10))
+		self.username.grid(row=1,column=1,padx=10,pady=(70,10))
 		
 		self.password=tk.Entry(self,width=27,font=("Helvetica",15),show="*")
 		self.labelpassword=tk.Label(self,width=10,text="Password : ",bg="grey",font=("BatangChe",15))
-		self.labelpassword.grid(row=1,column=0,padx=(30,0),pady=0)
-		self.password.grid(row=1,column=1,padx=10,pady=0)
+		self.labelpassword.grid(row=2,column=0,padx=(30,0),pady=0)
+		self.password.grid(row=2,column=1,padx=10,pady=0)
 		self.password.bind('<Return>',self.login)
 
 		self.username.focus_set()
 
 	def button(self):
 		self.login=tk.Button(text="Login",width=27,command=self.login)
-		self.login.grid(row=3,column=1,pady=(30,0),padx=(105,0))
+		self.login.grid(row=4,column=1,pady=(30,0),padx=(105,0))
 
 	def login(self,sementara="abc"):
 		abc0=self.username.get()
+		if not self.password.get() or not abc0:
+			messagebox.showinfo(title="Try again....",message="Please Input Username And Password ")
+			return
 		abc=hashlib.md5(self.password.get().encode()).hexdigest()
 		self.username.delete(0,tk.END)
 		self.password.delete(0,tk.END)
