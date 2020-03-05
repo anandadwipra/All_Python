@@ -8,11 +8,14 @@ class form_login(tk.Tk):
 		self.databases_conn()
 		self.title("Form Login Sederhana")
 		self.geometry("500x600+120+120")
-		self.config(bg='grey')
+		self.config(bg="grey")
+		#membuat frame
+		self.window1=tk.Frame(self,bg="grey",width=500, height=600)
+		self.window1.pack(fill="both", expand=True)
 		self.membuatentry()
 		self.button()
 	def databases_conn(self):
-		try:
+		try: 
 			self.conn = sqlite3.connect('testing.db')
 			self.c=self.conn.cursor()
 			print("Opened database successfully");
@@ -27,16 +30,14 @@ class form_login(tk.Tk):
 
 
 	def membuatentry(self):
-		self.labelutama=tk.Label(self,text="Silakan Login ",bg="grey",font=("helvetica",30)).place(x=130,y=10)
-
-
-		self.username=tk.Entry(self,width=27,font=("Helvetica",15))
-		self.labelusername=tk.Label(self,width=10,text="Username : ",bg="grey",font=("BatangChe",15))
+		self.labelutama=tk.Label(self.window1,text="Silakan Login ",bg="grey",font=("helvetica",30)).place(x=130,y=10)
+		self.username=tk.Entry(self.window1,width=27,font=("Helvetica",15))
+		self.labelusername=tk.Label(self.window1,width=10,text="Username : ",bg="grey",font=("BatangChe",15))
 		self.labelusername.grid(row=0,column=0,padx=(30,0),pady=(90,10))
 		self.username.grid(row=0,column=1,padx=10,pady=(90,10))
 		
-		self.password=tk.Entry(self,width=27,font=("Helvetica",15),show="*")
-		self.labelpassword=tk.Label(self,width=10,text="Password : ",bg="grey",font=("BatangChe",15))
+		self.password=tk.Entry(self.window1,width=27,font=("Helvetica",15),show="*")
+		self.labelpassword=tk.Label(self.window1,width=10,text="Password : ",bg="grey",font=("BatangChe",15))
 		self.labelpassword.grid(row=1,column=0,padx=(30,0),pady=0)
 		self.password.grid(row=1,column=1,padx=10,pady=0)
 		self.password.bind("<Return>",self.login)
@@ -44,7 +45,7 @@ class form_login(tk.Tk):
 		self.username.focus_set()
 
 	def button(self):
-		self.login=tk.Button(text="Login",width=27,command=self.login)
+		self.login=tk.Button(self.window1,text="Login",width=27,command=self.login)
 		self.login.grid(row=3,column=1,pady=(30,0),padx=(105,0))
 
 	def login(self,sementara=False):
@@ -62,9 +63,10 @@ class form_login(tk.Tk):
 			print(e)
 		try:
 			login=self.c.execute(f"SELECT * FROM User WHERE Username='{abc0}'").fetchall()[0]
-			print(login)
 			if login[1]==abc0 and login[2]==abc:
 				messagebox.showinfo("Berhasil","Selamat anda berhasil Login ")
+				self.window1.destroy()
+				tk.Label(self,text="Selamat Anda Berhasil Login !!!",font=("helvetica",20),bg="grey").place(x=65,y=230)
 			else:
 				messagebox.showerror("Gagal","Username atau Password tidak valid")
 		except Exception as e:
