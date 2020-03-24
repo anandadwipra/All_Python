@@ -1,14 +1,15 @@
 import tkinter as tk
 from tkinter import messagebox
-import re
-import time
+import re,time,webbrowser
 
 class master(tk.Tk):
-	
+
 	def __init__(self):
 		tk.Tk.__init__(self)
 		self.geometry("520x400")
 		self.frame0()
+		self.menu()
+		self.title("Tugas")
 		self.entry=[]
 		self.v=[]
 		self.validation = self.register(lambda a,b,c:self.only_numbers(a,b,c))
@@ -39,7 +40,14 @@ class master(tk.Tk):
 			t = (int(self.v[1].get()[6:]), int(self.v[1].get()[3:5]), int(self.v[1].get()[:2]), 8, 44, 4, 4, 362, 0)
 			local_time = time.mktime(t)
 			messagebox.showinfo("Jangan Menyerah ",f"Remidi Pada { time.ctime(local_time+(86400*10))}")
-
+	def menu(self):
+		self.menubar=tk.Menu(self)
+		self.config(menu=self.menubar)
+		# help
+		helpmenu=tk.Menu(self.menubar,tearoff=0)
+		helpmenu.add_command(label="About",command=lambda :webbrowser.open("https://github.com/anandadwipra/All_Python"))
+		helpmenu.add_command(label="Help",command=lambda :webbrowser.open("https://www.instagram.com/ananda.dwi.p/"))
+		self.menubar.add_cascade(label="help",menu=helpmenu)
 	def frame2(self):
 		self.window=(tk.Frame(self,bg='grey',width=520,height=400))
 		self.window.pack(fill="both",expand=True)
@@ -118,7 +126,5 @@ class master(tk.Tk):
 					if int(tanggal) <= tanggalbro :
 						messagebox.showinfo("Zodiak ",f"Zodiak anda adalah {key}")
 						return
-				
-
 zodiak= master()
 zodiak.mainloop()
