@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from urllib.request import urlopen
-from PIL import Image, ImageTk
+# from PIL import Image, ImageTk
 import json,re
 
 
@@ -10,7 +10,10 @@ class mainWindow(tk.Tk):
 		tk.Tk.__init__(self)
 		self.config(bg="blue")
 		self.title("Covid-19 Update")
-		self.iconbitmap("img/icon.ico")
+		try:
+			self.iconbitmap("img/icon.ico")
+		except:
+			self.iconphoto(False, tk.PhotoImage(file='img/virus.png'))
 		photo=tk.PhotoImage(file="img/main.png")
 		self.frame=tk.Frame(self,width=820,height=600)
 		self.frame.pack(fill="both",expand=False)
@@ -35,9 +38,9 @@ class mainWindow(tk.Tk):
 		self.entry.place(x=100,y=20)
 		tk.Button(self.frame2,text="search",command=self.search).place(x=230,y=20)
 		tk.Label(self.frame2,text=xx,font=("Helvetica",20),bg="#43d8e6").place(x=20,y=50)
-		tk.Label(self.frame2,text=f"Confirmed : {x}",font=("Helvetica",15),bg="#43d8e6").place(x=20,y=90)
-		tk.Label(self.frame2,text=f"Active : ",font=("Helvetica",15),bg="#43d8e6").place(x=20,y=120)
-		tk.Label(self.frame2,text=f"Death : {y}",font=("Helvetica",15),bg="#43d8e6").place(x=20,y=150)
+		tk.Label(self.frame2,text=f"Confirmed  : {x}",font=("Helvetica",15),bg="#43d8e6").place(x=20,y=90)
+		tk.Label(self.frame2,text=f"Active\t  : ",font=("Helvetica",15),bg="#43d8e6").place(x=20,y=120)
+		tk.Label(self.frame2,text=f"Death\t  : {y}",font=("Helvetica",15),bg="#43d8e6").place(x=20,y=150)
 		tk.Label(self.frame2,text=f"Recovered : {z}",font=("Helvetica",15),bg="#43d8e6").place(x=20,y=180)
 		self.frame2.place(x=200,y=160)
 	def search(self):
