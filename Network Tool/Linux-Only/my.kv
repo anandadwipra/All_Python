@@ -1,0 +1,31 @@
+
+#: import lengkap __main__.lengkap
+<Window>
+	btn:btn
+	text:text
+	BoxLayout:
+		size:(root.width,root.height)
+		orientation: 'vertical'
+		Label:
+			size_hint_y: .2
+			text:"IP CHECKER"
+		BoxLayout:
+			orientation: 'horizontal'
+			Label:
+				size_hint_x: .15
+			BoxLayout:
+				size_hint_x: .15
+				orientation: 'vertical'
+				Button:
+					id:btn
+					text:"Select Interfaces"
+					size_hint_y: .1
+				Label:
+			Label:
+				id:text
+				readonly: True
+				size_hint_x: .55
+			Label:
+				size_hint_x: .15
+		Label:
+			size_hint_y: .2
