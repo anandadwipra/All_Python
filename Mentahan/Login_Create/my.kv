@@ -1,0 +1,77 @@
+<Login>:
+	FloatLayout:
+		size:(root.width,root.height)
+		Label:
+			text:"Login Page "
+			size_hint:(.3,.2)
+			pos_hint: {'top': 1,'x':.35}
+			font_size: 20
+		Label:
+			text:"Username"
+			size_hint:(.3,.05)
+			pos_hint: {'top': .8,'x':.1}
+		TextInput:
+			multiline:False
+			size_hint:(.4,.05)
+			pos_hint: {'top': .8,'x':.4}
+		Label:
+			text:"Password"
+			size_hint:(.3,.05)
+			pos_hint: {'y': .6,'x':.1}
+		TextInput:
+			multiline:False
+			password:True
+			size_hint:(.4,.05)
+			pos_hint: {'y': .6,'x':.4}
+		Button:
+			text:"Create"
+			size_hint:(.4,.05)
+			pos_hint: {'y': .35,'x':.3}
+			on_press:
+				app.root.current= 'Create'
+		Button:
+			text:"Login"
+			size_hint:(.7,.1)
+			pos_hint: {'y': .2,'x':.15}
+			on_press:
+				root.login()
+<Create>:
+	FloatLayout:
+		Label:
+			text:"Username"
+			size_hint:(.3,.05)
+			pos_hint: {'top': .8,'x':.1}
+		TextInput:
+			multiline:False
+			size_hint:(.4,.05)
+			pos_hint: {'top': .8,'x':.4}
+		
+		Label:
+			text:"Email"
+			size_hint:(.4,.05)
+			pos_hint: {'top': .70,'x':.1}
+
+		TextInput:
+			multiline:False
+			size_hint:(.4,.05)
+			pos_hint: {'top': .70,'x':.4}
+		
+		Label:
+			text:"Password"
+			size_hint:(.4,.05)
+			pos_hint: {'top': .6,'x':.1}
+		TextInput:
+			multiline:False
+			size_hint:(.4,.05)
+			pos_hint: {'top': .6,'x':.4}
+			password:True
+		
+		Button:
+			text:"Create"
+			size_hint:(.7,.1)
+			pos_hint:{'y':.2,'x':.15}
+			on_press:
+				app.root.current="Login"
+<Main>:
+	Label:
+		text:"Selamat datang dimain"
