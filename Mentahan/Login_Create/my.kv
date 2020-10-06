@@ -1,4 +1,8 @@
+# #: import tiles __main__.popupku
+#:import Factory kivy.factory.Factory
 <Login>:
+	user:username 
+	pw:password 
 	FloatLayout:
 		size:(root.width,root.height)
 		Label:
@@ -11,6 +15,7 @@
 			size_hint:(.3,.05)
 			pos_hint: {'top': .8,'x':.1}
 		TextInput:
+			id:username 
 			multiline:False
 			size_hint:(.4,.05)
 			pos_hint: {'top': .8,'x':.4}
@@ -19,6 +24,7 @@
 			size_hint:(.3,.05)
 			pos_hint: {'y': .6,'x':.1}
 		TextInput:
+			id:password
 			multiline:False
 			password:True
 			size_hint:(.4,.05)
@@ -36,12 +42,16 @@
 			on_press:
 				root.login()
 <Create>:
+	user:username 
+	pw:password 
+	email:email
 	FloatLayout:
 		Label:
 			text:"Username"
 			size_hint:(.3,.05)
 			pos_hint: {'top': .8,'x':.1}
 		TextInput:
+			id:username
 			multiline:False
 			size_hint:(.4,.05)
 			pos_hint: {'top': .8,'x':.4}
@@ -52,6 +62,7 @@
 			pos_hint: {'top': .70,'x':.1}
 
 		TextInput:
+			id:email 
 			multiline:False
 			size_hint:(.4,.05)
 			pos_hint: {'top': .70,'x':.4}
@@ -61,6 +72,7 @@
 			size_hint:(.4,.05)
 			pos_hint: {'top': .6,'x':.1}
 		TextInput:
+			id:password
 			multiline:False
 			size_hint:(.4,.05)
 			pos_hint: {'top': .6,'x':.4}
@@ -70,8 +82,10 @@
 			text:"Create"
 			size_hint:(.7,.1)
 			pos_hint:{'y':.2,'x':.15}
-			on_press:
-				app.root.current="Login"
+			on_release:
+				root.create("ahahaha")
 <Main>:
 	Label:
-		text:"Selamat datang dimain"
+		text:"Selamat anda Behasil Login"
+
+		
